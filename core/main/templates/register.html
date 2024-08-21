@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <input type="text" name="username" placeholder="Username" id="">
+        </p>
+        <p>
+            <input type="email" name="email" placeholder="Email" id="">
+        </p>
+        <p>
+            <input type="password" name="password1" placeholder="Password" id="">
+        </p>
+        <p>
+            <input type="password" name="password2" placeholder="Confirm Password" id="">
+        </p>
+
+        <button type="submit">Register</button>
+
+
+    </form>
+
+
+
+{% endblock %}

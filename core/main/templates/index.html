@@ -1,51 +1,17 @@
-{% load static %}
-
+{% extends 'base.html' %}
 {% load i18n %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
-                <input name="next" type="hidden" value="{{ redirect_to }}">
-            <select name="language">
-                {% get_current_language as LANGUAGE_CODE %}
-                {% get_available_languages as LANGUAGES %}
-                {% get_language_info_list for LANGUAGES as languages %}{% for language in languages %}
-            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-            selected{% endif %}>
-                {{ language.name_local }} ({{ language.code }})
-            </option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Go">
-            </form>
-            {% for i in news %}
-                <h1>{{ i.title }}</h1>
-                <p>{{ i.text }}</p>
-            {% endfor %}
-    </header>
+{% block content %}
     <h1 class="jumong">{% trans 'Electronics' %}</h1>
-    <hr>
-    {% for i in category_list %}
-        <h1>{{ i.name }}</h1>
-        {% for j in i.cat_prod.all %}
-            <h4>{{ j.name }}</h4>
-            <img src="{{ j.image.url }}" width="300px" height="300px" alt="">
-            <p>{{ j.price }}</p>
-            <hr>
+        <hr>
+        {% for i in category_list %}
+            <h1>{{ i.name }}</h1>
+            {% for j in i.cat_prod.all %}
+                <h4>{{ j.name }}</h4>
+                <img src="{{ j.image.url }}" width="300px" height="300px" alt="">
+                <p>{{ j.price }}</p>
+                <hr>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-</body>
 
-<footer>
-    <h3>{% trans 'Best Store' %}</h3>
-</footer>
-</html>
+{% endblock %}
